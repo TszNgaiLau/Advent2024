@@ -21,10 +21,10 @@ public class Day2 {
             for (int j = 0; j < split.length - 1; j++) {
                 curr = Integer.parseInt(split[j]);
                 next = Integer.parseInt(split[j+1]);
-                if (increase && Math.abs(curr - next) < 3) {
+                if (increase && Math.abs(curr - next) <= 3 && curr < next) {
                     times++;
                 }
-                if (!increase && Math.abs(curr - next) < 3) {
+                if (!increase && Math.abs(curr - next) <= 3 && curr > next) {
                     times++;
                 }
                 if (times == split.length - 1) {
