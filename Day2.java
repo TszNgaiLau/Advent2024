@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Day2 {
@@ -18,14 +19,26 @@ public class Day2 {
                 increase = true;
             }
             int times = 0;
+            boolean firstTime = true;
             for (int j = 0; j < split.length - 1; j++) {
                 curr = Integer.parseInt(split[j]);
                 next = Integer.parseInt(split[j+1]);
                 if (increase && Math.abs(curr - next) <= 3 && curr < next) {
                     times++;
-                }
-                if (!increase && Math.abs(curr - next) <= 3 && curr > next) {
+                } else if (!increase && Math.abs(curr - next) <= 3 && curr > next) {
                     times++;
+                } else if (firstTime) {
+                    firstTime = false;
+                    split[j+1] = String.valueOf(curr);
+                    times++;
+                    curr = Integer.parseInt(split[j]);
+                    next = Integer.parseInt(split[j+1]);
+                    if (curr < next) {
+                        increase = true;
+                    } else {
+                        increase = false;
+                    }
+                    System.out.println(Arrays.toString(split));
                 }
                 if (times == split.length - 1) {
                     total++;
