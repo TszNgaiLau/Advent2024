@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,36 +12,37 @@ public class Day2 {
 
         int total = 0;
         for (int i = 0; i < fileData.size(); i++) {
-            String[] split = fileData.get(i).split(" ");
-            int curr = Integer.parseInt(split[0]);
-            int next = Integer.parseInt(split[1]);
+            ArrayList<String> split = new ArrayList<>(Arrays.asList(fileData.get(i).split(" ")));
+            int curr = Integer.parseInt(split.get(0));
+            int next = Integer.parseInt(split.get(1));
             boolean increase = false;
             if (curr < next) {
                 increase = true;
             }
             int times = 0;
             boolean firstTime = true;
-            for (int j = 0; j < split.length - 1; j++) {
-                curr = Integer.parseInt(split[j]);
-                next = Integer.parseInt(split[j+1]);
+            for (int j = 0; j < split.size() - 1; j++) {
+                curr = Integer.parseInt(split.get(j));
+                next = Integer.parseInt(split.get(j+1));
                 if (increase && Math.abs(curr - next) <= 3 && curr < next) {
                     times++;
                 } else if (!increase && Math.abs(curr - next) <= 3 && curr > next) {
                     times++;
                 } else if (firstTime) {
                     firstTime = false;
-                    split[j+1] = String.valueOf(curr);
                     times++;
-                    curr = Integer.parseInt(split[j]);
-                    next = Integer.parseInt(split[j+1]);
-                    if (curr < next) {
-                        increase = true;
-                    } else {
-                        increase = false;
+                    split.remove(j + 1);
+                    if (j+1 < split.size()) {
+                        curr = Integer.parseInt(split.get(j));
+                        next = Integer.parseInt(split.get(j+1));
+                        if (curr < next) {
+                            increase = true;
+                        } else {
+                            increase = false;
+                        }
                     }
-                    System.out.println(Arrays.toString(split));
                 }
-                if (times == split.length - 1) {
+                if (times == split.size() - 1) {
                     total++;
                 }
             }
