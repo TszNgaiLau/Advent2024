@@ -1,6 +1,8 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Collections;
 
@@ -18,12 +20,24 @@ public class Day1 {
         }
 
         int total = 0;
+        int sim = 0;
         Collections.sort(firstList);
         Collections.sort(secondList);
 
         for (int i = 0; i < firstList.size(); i++) {
             total += Math.abs(firstList.get(i) - secondList.get(i));
         }
+
+        for (int i = 0; i < firstList.size(); i++) {
+            int times = 0;
+            for (int j = 0; j < secondList.size(); j++) {
+                if (Objects.equals(firstList.get(i), secondList.get(j))) {
+                    times++;
+                }
+            }
+            sim += firstList.get(i) * times;
+        }
+        System.out.println(sim);
         System.out.println(total);
     }
 
