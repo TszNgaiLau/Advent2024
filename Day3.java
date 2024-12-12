@@ -1,4 +1,5 @@
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -20,15 +21,28 @@ public class Day3 {
             str.append(ma);
         }
 
-        String regex = "mul\\([1-9]{1,3},[1-9]{1,3}\\)";
+        String regex = "mul\\([0-9]{1,3},[0-9]{1,3}\\)|do\\(\\)|don't\\(\\)";
         Matcher m = Pattern.compile(regex).matcher(str);
         while (m.find()) {
             allMatches.add(m.group(0));
         }
+        int total = 0;
+
+        System.out.println(allMatches);
+        Boolean y = true;
         for (String curr : allMatches) {
-            int num1 = Integer.parseInt(curr.substring(4, curr.indexOf(",")));
-            int num2 = Integer.parseInt(curr.substring(curr.indexOf(",") + 1, curr.indexOf(")")));
+            if (curr.equals("do()")) {
+                y = true;
+            } else if (curr.equals("don't()")) {
+                y = false;
+            } else if (y) {
+                int num1 = Integer.parseInt(curr.substring(4, curr.indexOf(",")));
+                int num2 = Integer.parseInt(curr.substring(curr.indexOf(",") + 1, curr.indexOf(")")));
+                int mul = num1 * num2;
+                total += mul;
+            }
         }
+        System.out.println(total);
 
     }
 
