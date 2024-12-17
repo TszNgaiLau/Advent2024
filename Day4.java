@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ public class Day4 {
             }
         }
 
-        totalMatches = checkHorizontal(grid) + checkVertical(grid) + checkDiagonal(grid);
+//        checkHorizontal(grid) + checkVertical(grid) + checkDiagonalRight(grid) +
+        totalMatches = checkHorizontal(grid) + checkVertical(grid) + checkDiagonalRight(grid) +checkDiagonalLeft(grid);
         System.out.println(totalMatches);
 
 
@@ -66,17 +68,34 @@ public class Day4 {
         return matches;
     }
 
-    public static int checkDiagonal(String[][] Hor) {
+    public static int checkDiagonalRight(String[][] Hor) {
         int matches = 0;
         for (int c = 0; c < Hor[0].length - 3; c++) {
             for (int r = 0; r < Hor.length - 3; r++) {
                 if (Hor[r][c].equals("X") && Hor[r + 1][c + 1].equals("M") && Hor[r + 2][c + 2].equals("A") && Hor[r + 3][c + 3].equals("S")) {
                     matches++;
-                    System.out.println("diag1");
+                    System.out.println("diag1l");
                 }
                 if (Hor[r][c].equals("S") && Hor[r + 1][c + 1].equals("A") && Hor[r + 2][c + 2].equals("M") && Hor[r + 3][c + 3].equals("X")) {
                     matches++;
-                    System.out.println("diag2");
+                    System.out.println("diag2l");
+                }
+            }
+        }
+        return matches;
+    }
+
+    public static int checkDiagonalLeft(String[][] Hor) {
+        int matches = 0;
+        for (int c = Hor[0].length - 1; c > 3; c--) {
+            for (int r = Hor.length - 1; r > 3; r--) {
+                if (Hor[r][c].equals("X") && Hor[r - 1][c - 1].equals("M") && Hor[r - 2][c - 2].equals("A") && Hor[r - 3][c - 3].equals("S")) {
+                    matches++;
+                    System.out.println("diag1r");
+                }
+                if (Hor[r][c].equals("S") && Hor[r - 1][c - 1].equals("A") && Hor[r - 2][c - 2].equals("M") && Hor[r - 3][c - 3].equals("X")) {
+                    matches++;
+                    System.out.println("diag2r");
                 }
             }
         }
